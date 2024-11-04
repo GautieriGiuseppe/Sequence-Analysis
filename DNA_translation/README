@@ -1,0 +1,4 @@
+DNA_translation is a script which takes the sequence from a local FASTA file and
+perform the translation into the sequence of amino acids encoded. 
+This is performed using the seq package from Bio. 
+The default table used to translate the nucleotide sequence is the standard one.
