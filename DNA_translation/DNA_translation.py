@@ -9,7 +9,7 @@ class DNA_sequence():
         if len(self.sequence) == 0:
             raise ValueError(f"No sequences found in {fasta_file}.")
 
-    def translate(self):
+    def translate(self) -> str:
         """Translate the nucleotide sequence in amino acids sequence using codon table"""
         if len(self.sequence) % 3 == 0 :
             protein_sequence = Seq.translate(Seq(self.sequence), "Standard")
@@ -20,7 +20,7 @@ class DNA_sequence():
         return protein_sequence
 
 
-fasta_file = "" # add file path
+fasta_file = "/Users/giuse/pythonProject/Mycodes/samples/sequence1.txt" # add file path
 sequence = DNA_sequence(fasta_file)
 protein_sequence = sequence.translate()
 print(f"The sequence is {protein_sequence}")
