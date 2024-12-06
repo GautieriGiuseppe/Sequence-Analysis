@@ -10,6 +10,7 @@ class Sequence():
             self.id = record.id
             self.description = record.description
             self.length = len(self.sequence)
+            self.results = []
 
 
     def calculate_gc_content(self):
@@ -63,14 +64,12 @@ class Sequence():
 
     def analyze_genome(self, promoter_patterns):
         """Analyze a genome from a FASTA file, including GC content, nucleotide counts, and promoter sequences."""
-        results = []
         #for record in SeqIO.parse(self, "fasta"):
         gc_content = self.calculate_gc_content()
         nucleotide_counts = self.calculate_nucleotide_counts_DNA()
         promoters = self.find_promoter_sequences(promoter_patterns)
-        start_site = self.find_transcription_start_site(promoters)[0]
-        distance = self.find_transcription_start_site(promoters)[1]
-        results.append({
+        (start_site, distance) = self.find_transcription_start_site(promoters)
+        self.results.append({
             'id': self.id,
             'description': self.description,
             'length': self.length,
@@ -80,11 +79,11 @@ class Sequence():
             'transcription_start_site': start_site,
             'distance_promoter': distance,
         })
-        return self.print(results)
+        return self.__str__()
 
-    def print(self, results):
+    def __str__(self):
         """Displays the results"""
-        for result in results:
+        for result in self.results:
             print(f"ID: {result['id']}")
             print(f"Description: {result['description']}")
             print(f"Length: {result['length']}")
