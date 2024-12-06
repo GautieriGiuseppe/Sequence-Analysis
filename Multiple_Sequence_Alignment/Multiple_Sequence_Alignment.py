@@ -13,13 +13,13 @@ class MSA():
             raise ValueError(f"No sequences found in {self}.")
 
 
-    def save_combined_fasta(self, output_file="combined_sequences.fasta"):
+    def save_combined_fasta(self, output_file="combined_sequences.fasta") -> str:
         """ Save multiple sequences into a single FASTA file for MSA."""
         SeqIO.write(self.sequences, output_file, "fasta")
         return output_file
 
 
-    def perform_msa(self, tool):
+    def perform_msa(self, tool:str):
         """ Perform MSA using ClustalW or Muscle."""
         if tool == "clustalw": # make sure to have it installed
             cmd = ["conda", "run", "clustalw", "-align", f"-infile={combined_fasta}"]
@@ -39,7 +39,9 @@ class MSA():
 
 if __name__ == "__main__":
     # List of FASTA files on local pc
-    fasta_files = [] # add path of files here
+    fasta_files = ["/Users/giuse/pythonProject/Mycodes/samples/sequence1.txt",
+                   "/Users/giuse/pythonProject/Mycodes/samples/sequence2.txt",
+                   "/Users/giuse/pythonProject/Mycodes/samples/sequence3.txt"] # add path of files here
 
     # Load and combine sequences into a single file
     sequences = MSA(fasta_files)
